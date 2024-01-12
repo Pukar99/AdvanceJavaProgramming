@@ -1,71 +1,83 @@
-// Q. 1 Create a user Add form. The form must contain fields for: Name, Address, email, contry(drop down box),
-// Marital Status, gender, checkbox to accept terms and policy.
+// Q.2 Create a Login form that has two label: username and password and two text field to take input of these values. 
+// There should be a Login button. Once the Login button is created, display the dashboard. 
+// In the form there should be link to signup page. If the link is created display the add user form created earlier.
 
 import java.awt.*;
 import javax.swing.*;
+import java.awt.event.*;
 
-public class Q16 {
+class Dashboard {
+    Dashboard() {
+        JFrame jfd = new JFrame("Dashboard");
+        jfd.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        jfd.setLayout(new FlowLayout());
+        jfd.add(new JTextArea("Login Successful"), BorderLayout.CENTER);
+        jfd.setSize(400, 400);
+        jfd.setVisible(true);
+    }
+}
+
+public class Q16 implements ActionListener {
+    JFrame jf;
+    JButton jbLogin, jbSignUp;
+    JLabel username, password;
+    JTextField uField;
+    JPasswordField pField;
+    GridBagConstraints gbc;
+
     public Q16() {
-        JFrame frame = new JFrame("User Add Form");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 400);
-        JLabel nameJLabel = new JLabel("Name: ");
-        JTextField nameTextField = new JTextField(20);
-        JLabel addJLabel = new JLabel("Address: ");
-        JTextField addTextField = new JTextField(20);
-        JLabel emailJLabel = new JLabel("Email: ");
-        JTextField emailTextField = new JTextField(20);
-        JLabel countryJLabel = new JLabel("Country: ");
-        String[] country = {"USA", "UK", "Nepal"};
-        JComboBox countryJComboBox = new JComboBox(country);
-        JLabel maritalStatusJLabel = new JLabel("Marital Status: ");
-        JCheckBox marriedJCheckBox = new JCheckBox("Married");
-        JCheckBox unmarriedJCheckBox = new JCheckBox("Unmarried");
-        JCheckBox singleJCheckBox = new JCheckBox("Single");
-        ButtonGroup statusButtonGroup = new ButtonGroup();
-        statusButtonGroup.add(marriedJCheckBox);
-        statusButtonGroup.add(unmarriedJCheckBox);
-        statusButtonGroup.add(singleJCheckBox);
-        JLabel genderJLabel = new JLabel("Gender: ");
-        JRadioButton maleButton = new JRadioButton("Male");
-        JRadioButton femaleButton = new JRadioButton("Female");
-        ButtonGroup genderButtonGroup = new ButtonGroup();
-        genderButtonGroup.add(maleButton);
-        genderButtonGroup.add(femaleButton);
-        JLabel TermsJLabel = new JLabel("Terms and Policy: ");
-        JCheckBox acceptJCheckBox = new JCheckBox();
-        JPanel panel1 = new JPanel();
-        panel1.add(nameJLabel); panel1.add(nameTextField);
-        JPanel panel2 = new JPanel();
-        panel2.add(addJLabel); panel2.add(addTextField);
-        JPanel panel3 = new JPanel();
-        panel3.add(emailJLabel); panel3.add(emailTextField);
-        JPanel panel4 = new JPanel();
-        panel4.add(countryJLabel); panel4.add(countryJComboBox);
-        JPanel panel5 = new JPanel();
-        panel5.add(maritalStatusJLabel); panel5.add(marriedJCheckBox); panel5.add(unmarriedJCheckBox); panel5.add(singleJCheckBox);
-        JPanel panel6 = new JPanel();
-        panel6.add(genderJLabel); panel6.add(maleButton); panel6.add(femaleButton);
-        JPanel panel7 = new JPanel();
-        panel7.add(TermsJLabel); panel7.add(acceptJCheckBox);
-        JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(7, 1));
-        panel.add(panel1);
-        panel.add(panel2);
-        panel.add(panel3);
-        panel.add(panel4);
-        panel.add(panel5);
-        panel.add(panel6);
-        panel.add(panel7);
-        frame.setLayout(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
+        jf = new JFrame("Login Form");
+        jf.setSize(400, 400);
+        jf.setLayout(new GridBagLayout());
+        
+        gbc = new GridBagConstraints();
+        
+        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.gridx = 0; gbc.gridy = 1;
+        username = new JLabel("Username: ");
+        jf.add(username, gbc);
+
+        gbc.gridx = 1;
+        uField = new JTextField(10);
+        jf.add(uField, gbc);
+
+        gbc.gridx = 0; gbc.gridy = 2;
+        password = new JLabel("Password: ");
+        jf.add(password, gbc);
+        
+        gbc.gridx = 1;
+        pField = new JPasswordField(10);
+        jf.add(pField, gbc);
+        
+        gbc.insets = new Insets(10, 5, 10, 5);
+        gbc.gridx = 0; gbc.gridy = 3;
+        jbLogin = new JButton("Login");
+        jbLogin.addActionListener(this);
+        jf.add(jbLogin, gbc);
+
+        gbc.anchor = GridBagConstraints.LAST_LINE_END;
+        gbc.gridx = 1;
+        jbSignUp = new JButton("Sign up");
+        jbSignUp.addActionListener(this);
+        jf.add(jbSignUp, gbc);
+        
+        gbc.anchor = GridBagConstraints.CENTER;
+        gbc.gridwidth = 2;
         gbc.gridx = 0; gbc.gridy = 0;
-        frame.add(new JLabel("SIGN UP"), gbc);
-        gbc.gridy = 1;
-        frame.add(panel, gbc);
-        gbc.gridy = 2;
-        frame.add(new JButton("Sign up"), gbc);
-        frame.setVisible(true);
+        jf.add(new JLabel("LOGIN"), gbc);
+
+        jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        jf.setVisible(true);
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == jbLogin && !(uField.getText().isEmpty()) && (pField.getPassword().length != 0)) {
+            jf.dispose();
+            new Dashboard();
+        } else if (e.getSource() == jbSignUp) {
+            jf.dispose();
+            new Q15();
+        }
     }
 
     public static void main(String[] args) {
